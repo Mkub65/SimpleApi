@@ -24,5 +24,39 @@ export class UserController {
             res.status(500).json({error: 'Failed to get users'});
         }
     }
+
+    async getUserById(req: Request, res: Response) {
+        try {
+            const id = req.params.id;
+            const user = await this.userServiceInstance.getUserById(id);
+            
+            if(!user) {
+                return res.status(404).json({message: 'User not found!'});
+            }
+
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({message: `${error}`});
+        }
+    }
+
+    async deleteUserById(req: Request, res: Response) {
+        try {
+            const id = req.params.id;
+            await this.userServiceInstance.deleteUser(id);
+            res.status(200).json({message: 'User deleted'});
+        } catch (error) {
+            res.status(500).json({message: `Failed to delete User. ${error}`});
+        }
+    }
+
+    async updateUser(req: Request, res: Response) {
+        try {
+            await this.userServiceInstance.updateUser(req.body);
+            res.status(204).json({message: 'User updated'});
+        } catch (error) {
+            res.status(500).json({message: 'Failed to update user'});
+        }
+    }
 }
 

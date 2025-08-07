@@ -24,7 +24,7 @@ resource "aws_dynamodb_table" "users" {
   }
 
   stream_enabled   = true
-  stream_view_type = "NEW_IMAGE"
+  stream_view_type = "NEW_AND_OLD_IMAGE"
 }
 
 resource "aws_dynamodb_table" "audit_log" {

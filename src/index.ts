@@ -13,5 +13,4 @@ app.use('/api', router);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    console.log(`${process.env.DYNAMO_TABLE_NAME}`)
 });
