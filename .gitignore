@@ -145,3 +145,5 @@ vite.config.ts.timestamp-*
 terraform.tfvars
 terraform.tfvars.json
 crash.log
+
+*.zip
