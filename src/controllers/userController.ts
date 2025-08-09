@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import { z } from 'zod';
 import { userService } from "../services/userService";
+import { userSchema } from "../schemas/userSchema";
 
 
 
@@ -8,10 +10,13 @@ export class UserController {
 
     async createUser(req: Request, res: Response) {
         try {
-            const user = req.body;
-            await this.userServiceInstance.addUser(user);
+            const parsedUser = userSchema.parse(req.body);
+            await this.userServiceInstance.addUser(parsedUser);
             res.status(201).json({message: 'User created'});
         } catch (error) {
+            if (error instanceof z.ZodError) {
+                return res.status(400).json({errors: error.issues});
+            }
             res.status(500).json({error: `Fialed to create user. ${error}`});
         }
     }

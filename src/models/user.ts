@@ -1,7 +1,4 @@
-type Role = 'user' | 'admin';
+import { z } from 'zod'
+import { userSchema } from '../schemas/userSchema'
 
-export interface User{
-    id: string,
-    name: string,
-    role: Role
-};
+export type User = z.infer<typeof userSchema>
